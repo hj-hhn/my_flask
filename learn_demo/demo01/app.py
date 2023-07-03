@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
-from flask import Flask,request
+from flask import Flask,request,render_template
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
+
+
+
+# 在app.config 中设置好连接数据库的信息
+# 然后使用SQLAlchemy(app) 创建一个db对象
+# db自动获取app中的config
+db = SQLAlchemy(app)
+
+class User:
+    def __init__(self,username,email):
+        self.username = username
+        self.email = email
 
 
 @app.route('/')
@@ -28,7 +41,25 @@ def book_list():
     page = request.args.get('page',default=1,type=int)
     return f'获取的是第{page}的book_list'
 
+@app.route('/filter')
+def filter_demo():
+    user = User(username='houjiexxxxxx',email='111@163.com')
+    return render_template('filter.html',user=user)
 
+
+@app.route('/control')
+def control_statement():
+    age = 18
+    books_list = [
+        {'name':'aaa','author':'aaa1'},
+        {'name':'bbb','author':'bbb1'},
+        {'name':'ccc','author':'ccc1'}
+    ]
+    return render_template('control.html',age=age,books=books_list)
+
+@app.route('/child')
+def clild1():
+    return render_template('child1.html')
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=2000)
