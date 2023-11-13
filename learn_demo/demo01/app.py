@@ -1,21 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import Flask,request,render_template
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask,request
 
 
 app = Flask(__name__)
-
-
-
-# 在app.config 中设置好连接数据库的信息
-# 然后使用SQLAlchemy(app) 创建一个db对象
-# db自动获取app中的config
-db = SQLAlchemy(app)
-
-class User:
-    def __init__(self,username,email):
-        self.username = username
-        self.email = email
 
 
 @app.route('/')
@@ -46,6 +33,21 @@ def filter_demo():
     user = User(username='houjiexxxxxx',email='111@163.com')
     return render_template('filter.html',user=user)
 
+@app.route('/houjie')
+def templates_demo():
+    return render_template('index.html')
+
+@app.route('/block/<block_id>')
+def block_id_demo(block_id):
+    return render_template('block_demo.html',block_id=block_id)
+
+@app.route('/child')
+def module_child():
+    return render_template('/child1.html')
+
+@app.route('/static')
+def static_demo():
+    return  render_template('static_demo.html')
 
 @app.route('/control')
 def control_statement():
