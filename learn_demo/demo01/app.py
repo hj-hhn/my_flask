@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask,request
+from flask import Flask,request,render_template
 
 
 app = Flask(__name__)
@@ -28,8 +28,22 @@ def book_list():
     page = request.args.get('page',default=1,type=int)
     return f'获取的是第{page}的book_list'
 
+@app.route('/houjie')
+def templates_demo():
+    return render_template('index.html')
+
+@app.route('/block/<block_id>')
+def block_id_demo(block_id):
+    return render_template('block_demo.html',block_id=block_id)
+
+@app.route('/child')
+def module_child():
+    return render_template('/child1.html')
+
+@app.route('/static')
+def static_demo():
+    return  render_template('static_demo.html')
 
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=2000)
-    print('hhh')
