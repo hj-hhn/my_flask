@@ -10,7 +10,7 @@ def hello_world():
     return 'hello world!!!'
 
 # 1. 修改host = 0.0.0.0  就能其他电脑访问
-# --host=0.0.0.0
+# --host=0.0.0.0  221
 
 # 2.修改端口号
 
